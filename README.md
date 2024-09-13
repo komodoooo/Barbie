@@ -3,7 +3,7 @@ A simple, persisent windows toy backdoor/reverse-shell using HTTP/S to communica
 
 Once the victim starts the executable it locates itself on default startup programs directory, then it tries to establish a connection.
 ## Setup
-Edit the line 6 with your own domain.
+Edit the line 6 with your own reachable domain or public IP address.
 #### Compile
 `gcc barbie.c -o startupsrvc -w -mwindows`
 #### Setting up your machine as temporary C2 server
