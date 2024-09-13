@@ -7,7 +7,7 @@ Edit the line 6 with your own domain.
 #### Compile
 `gcc barbie.c -o startupsrvc -w -mwindows`
 #### Setting up your machine as temporary C2 server
-Start your server with `python3 server.py`, this will run your server on the port 5001, feel free to change that.<br>
+Start your server with `python3 server.py`, this will run your server locally on the port 5001, feel free to change that.<br>
 For using a self-signed TLS certificate add `ssl_context="adhoc"` in the last line of the code, this may cause problems if you use the below mentioned tunneling services.
 
 To avoid different code pages i used utf-8 to decode the raw data sent by the client.<br>
