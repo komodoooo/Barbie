@@ -18,10 +18,11 @@ def expose_command()->str:
 @app.route("/result", methods=["POST"])
 def print_response()->int:
     global accomplished, cmd
-    if request.get_data():
+    if request.get_data():                                     # https://docs.python.org/3/library/codecs.html#standard-encodings
+        output=request.get_data().decode("utf-8", errors="replace")
         accomplished=True
-        cmd=""                            # https://docs.python.org/3/library/codecs.html#standard-encodings
-        print(f"\n{request.get_data().decode("utf-8", errors="replace")}$ ", end="")
+        cmd=""                            
+        print(f"\n{output}$ ", end="") if output != " " else None
         return "", 200
     return "", 400
 
