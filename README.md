@@ -1,6 +1,6 @@
 # Barbie
 A simple, persisent windows toy backdoor/reverse-shell using HTTP/S to communicate with the C2 server.
-> A multi-client version is implemented on **[this fork](https://github.com/takaso/lainpill)** made with me and takaso, using a discord bot to manage multiple clients
+> A multi-client version is implemented on **[this fork](https://github.com/takaso/lainpill)** made with me and takaso, implementing some basic obfuscation techniques and using a discord bot to manage multiple clients
 
 Once the victim starts the executable it locates itself on default startup programs directory, then it tries to establish a connection.
 ## Setup
